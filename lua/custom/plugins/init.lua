@@ -3,3 +3,12 @@
 --
 -- See the kickstart.nvim README for more information
 return {}
+
+---- Wish list ----
+
+-- Preview markdown files:
+-- https://github.com/iamcco/markdown-preview.nvim
+
+-- Display images
+-- https://github.com/3rd/image.nvim (Make sure the setting hijack_file_patterns is enabled)
+-- https://github.com/edluffy/hologram.nvim
