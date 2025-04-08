@@ -675,7 +675,44 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        clangd = { cmd = { 'clangd', '--background-index', '--suggest-missing-includes', '--clang-tidy', '--header-insertion=never' } },
+        clangd = (function()
+          -- Look for compile_commands.json and add its directory path to --compile-commands-dir
+          local function get_compile_commands_dir()
+            local uv = vim.loop
+            local cwd = vim.fn.getcwd()
+
+            -- List directories to check in order of priority.
+            local paths = {
+              cwd .. '/build-host-release',
+              cwd .. '/build',
+            }
+
+            for _, path in ipairs(paths) do
+              local compile_commands_path = path .. '/compile_commands.json'
+              if uv.fs_stat(compile_commands_path) then
+                return path
+              end
+            end
+            return nil
+          end
+
+          local clangd_opts = {
+            'clangd',
+            '--background-index',
+            '--suggest-missing-includes',
+            '--clang-tidy',
+            '--header-insertion=never',
+          }
+
+          local compile_commands_dir = get_compile_commands_dir()
+          if compile_commands_dir then
+            table.insert(clangd_opts, '--compile-commands-dir=' .. compile_commands_dir)
+          end
+
+          return {
+            cmd = clangd_opts,
+          }
+        end)(),
         -- gopls = {},
         basedpyright = { settings = { basedpyright = { analysis = { typeCheckingMode = 'basic' } } } },
         rust_analyzer = {},
