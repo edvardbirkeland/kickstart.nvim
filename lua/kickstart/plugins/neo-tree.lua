@@ -15,9 +15,13 @@ return {
   },
   opts = {
     filesystem = {
+      follow_current_file = {
+        enabled = true,
+      },
       window = {
         mappings = {
           ['\\'] = 'close_window',
+          ['<space>'] = false, -- <enter> does the same thing, but quicker. This leaves the leader key free.
         },
       },
     },
