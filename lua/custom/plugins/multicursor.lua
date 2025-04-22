@@ -24,19 +24,22 @@ return {
       mc.lineSkipCursor(1)
     end, { desc = 'Skip adding cursor below' })
 
+    -- NOTE: Since I am not using these features, and because I don't like the keybinds,
+    -- the below keymaps are disabled for now.
+
     -- Add or skip adding a new cursor by matching word/selection
-    set({ 'n', 'x' }, '<leader>n', function()
-      mc.matchAddCursor(1)
-    end, { desc = 'Add cursor matching next selection' })
-    set({ 'n', 'x' }, '<leader>m', function()
-      mc.matchSkipCursor(1)
-    end, { desc = 'Skip adding cursor matching next selection' })
-    set({ 'n', 'x' }, '<leader>N', function()
-      mc.matchAddCursor(-1)
-    end, { desc = 'Add cursor matching previous selection' })
-    set({ 'n', 'x' }, '<leader>M', function()
-      mc.matchSkipCursor(-1)
-    end, { desc = 'Skip adding cursor matching previous selection' })
+    -- set({ 'n', 'x' }, '<leader>n', function()
+    --   mc.matchAddCursor(1)
+    -- end, { desc = 'Add cursor matching next selection' })
+    -- set({ 'n', 'x' }, '<leader>m', function()
+    --   mc.matchSkipCursor(1)
+    -- end, { desc = 'Skip adding cursor matching next selection' })
+    -- set({ 'n', 'x' }, '<leader>N', function()
+    --   mc.matchAddCursor(-1)
+    -- end, { desc = 'Add cursor matching previous selection' })
+    -- set({ 'n', 'x' }, '<leader>M', function()
+    --   mc.matchSkipCursor(-1)
+    -- end, { desc = 'Skip adding cursor matching previous selection' })
 
     -- Add and remove cursors with control + left click.
     set('n', '<c-leftmouse>', mc.handleMouse)
