@@ -338,11 +338,31 @@ require('lazy').setup({
         },
       },
 
-      -- Document existing key chains
       spec = {
-        { '<leader>s', group = '[S]earch' },
-        { '<leader>t', group = '[T]oggle' },
+        -- Document existing key chains
+        { '<leader>s', group = '[S]earch', icon = { icon = '', color = 'green' } },
+        { '<leader>t', group = '[T]oggle', icon = { icon = '󰔢', color = 'purple' } },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
+        { 'gr', group = 'LSP', icon = { icon = '', color = 'cyan' } },
+
+        -- Document custom key chains and set icons
+        -- Diffview
+        { '<leader>g', group = '[G]it Diffview', icon = { icon = '󰊢', color = 'orange' } },
+        { '<leader>gd', group = '[G]it [D]iff' },
+        { '<leader>gh', group = '[G]it [H]istory ' },
+
+        -- Marks
+        { '<leader>m', group = '[M]arks', icon = { icon = '󰍎', color = 'yellow' } },
+        { '<leader>md', icon = { icon = '󰼊', color = 'red' } },
+        { '<leader>ms', icon = { icon = '', color = 'green' } },
+        { '<leader>mt', icon = { icon = '󰔢', color = 'purple' } },
+
+        -- Neoclip
+        { '<leader>p', icon = { icon = '󰆒', color = 'cyan' } },
+
+        -- Multicursor
+        { '<leader><up>', icon = { icon = '󰞕', color = 'blue' } },
+        { '<leader><down>', icon = { icon = '󰞒', color = 'blue' } },
       },
     },
   },
@@ -569,10 +589,12 @@ require('lazy').setup({
           map('grt', require('telescope.builtin').lsp_type_definitions, '[G]oto [T]ype Definition')
 
           -- Switch between header and source file using clangd specific command
-          map('gh', function()
+          map('grh', function()
             local client = vim.lsp.get_client_by_id(event.data.client_id)
             if client and client.name == 'clangd' then
               vim.cmd 'ClangdSwitchSourceHeader'
+            else
+              vim.notify('Goto Header/Source only available for clangd', vim.log.levels.WARN)
             end
           end, '[G]oto [H]eader/Source')
 
