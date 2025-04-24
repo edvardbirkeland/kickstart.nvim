@@ -363,6 +363,12 @@ require('lazy').setup({
         -- Multicursor
         { '<leader><up>', icon = { icon = '󰞕', color = 'blue' } },
         { '<leader><down>', icon = { icon = '󰞒', color = 'blue' } },
+
+        -- Unsaved
+        { '<leader>u', group = '[U]nsaved changes', icon = { icon = '󱙃', color = 'yellow' } },
+        { '<leader>us', icon = { icon = '󰱼', color = 'green' } },
+        { '<leader>ua', icon = { icon = '󱇧', color = 'cyan' } },
+        { '<leader>ud', icon = { icon = '󰣜', color = 'red' } },
       },
     },
   },
@@ -1048,6 +1054,15 @@ require('lazy').setup({
   --
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   { import = 'custom.plugins' },
+
+  { -- Overview and actions on unsaved edits
+    dir = vim.fn.stdpath 'config' .. '/lua/custom/myplugins/unsaved',
+    event = 'VeryLazy',
+    config = function()
+      require('custom.myplugins.unsaved').setup()
+    end,
+  },
+
   --
   -- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
   -- Or use telescope!
