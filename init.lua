@@ -369,6 +369,11 @@ require('lazy').setup({
         { '<leader>us', icon = { icon = '󰱼', color = 'green' } },
         { '<leader>ua', icon = { icon = '󱇧', color = 'cyan' } },
         { '<leader>ud', icon = { icon = '󰣜', color = 'red' } },
+
+        -- Markview
+        { '<leader>M', group = '[M]arkview', icon = { icon = '󰔢', color = 'purple' } },
+        { '<leader>Mt', icon = { icon = '󰔢', color = 'purple' } },
+        { '<leader>Ms', icon = { icon = '󰔢', color = 'purple' } },
       },
     },
   },
