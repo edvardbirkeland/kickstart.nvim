@@ -489,6 +489,21 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sn', function()
         builtin.find_files { cwd = vim.fn.stdpath 'config' }
       end, { desc = '[S]earch [N]eovim files' })
+
+      -- Search open buffer. Keymap to close buffers from the preview selection included
+      vim.keymap.set('n', '<leader>sb', function()
+        builtin.buffers {
+          attach_mappings = function(prompt_bufnr, map)
+            -- Pressing <esc> within telescope changes mode from insert to normal mode. This cancels the delete_buffer.
+            -- To work around this timing issue use schedule_wrap to fire the delete one tick later.
+            local delete_later = vim.schedule_wrap(function()
+              require('telescope.actions').delete_buffer(prompt_bufnr)
+            end)
+            map({ 'n', 'i' }, '<del>', delete_later)
+            return true
+          end,
+        }
+      end, { desc = '[S]earch open [B]uffers' })
     end,
   },
 
